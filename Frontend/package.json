@@ -1,13 +1,16 @@
 {
-  "name": "frontend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "author": "",
-  "license": "MIT",
+  "devDependencies": {
+    "vite": "^4.4.5"
+  },
   "dependencies": {
     "crypto-js": "^4.1.1"
   }
