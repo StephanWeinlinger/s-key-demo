@@ -4,10 +4,72 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>S/Key Demo</title>
+    <link rel="stylesheet" href="default.css" />
   </head>
   <body>
-    <script type="module" src="/main.js"></script>
+    <h1>S/Key Demo</h1>
+    <p>
+      Diese Website zeigt den Ablauf von S/Key und ist in Module aufgeteilt.
+      Dabei gibt es zwei interaktive Module, welche die Registrierung und Authentifizierung schrittweise darstellen, und zwei weitere Module, welche den Prozess automatisiert abbilden.
+    </p>
+    <p>Beschreibung der Abläufe:  
+      <ul>
+        <li>
+          Registrierung eines neuen Benutzers
+          <ol>
+            <li>Eingabe von Benutzername und Passwort</li>
+            <li>Passwort wird clientseitig 100-mal durch SHA256 geschickt: h<sub>100</sub>=SHA256<sup>100</sup>(p)</li>
+            <li>Benutzername, Anzahl an Iterationen - 1 (i=99) und h<sub>100</sub> werden an Server gesendet</li>
+            <li>Server validiert und speichert Benutzername, Anzahl an Iterationen - 1 (i=99) und h<sub>100</sub> in DB</li>
+            <li>Benutzer hat sich erfolgreich registriert</li>
+          </ol>
+        </li>
+        <li>
+          Authentifizierung eines Benutzers
+          <ol>
+            <li>Eingabe von Benutzername und Passwort</li>
+            <li>Benutzername wird an Server gesendet, welcher derzeitige Iteration i zurückschickt</li>
+            <li>Passwort wird clientseitig i-mal durch SHA256 geschickt: h<sub>i</sub>=SHA256<sup>i</sup>(p)</li>
+            <li>Benutzername und h<sub>i</sub> werden an Server gesendet</li>
+            <li>Server berechnet h<sub>i+1</sub>=SHA256(h<sub>i</sub>)</li>
+            <li>Server nimmt Hashwert von Benutzer h<sub>Server</sub> aus der DB</li>
+            <li>Server vergleicht h<sub>i+1</sub> und h<sub>Server</sub></li>
+            <li>Bei Übereinstimmung wird die Anzahl der Iterationen in der DB um eins reduziert und der Hashwert durch h<sub>i</sub> ersetzt</li>
+            <li>Benutzer hat sich erfolgreich authentifiziert</li>
+          </ol>
+        </li>
+      </ul>
+    </p>
+    <section>
+      <h2>Registrierung eines neuen Benutzers</h2>
+      <p>Benutzername: <input type="text" id="usernameRegister" /></p>
+      <p>Passwort: <input type="text" id="passwordRegister" /></p>
+      <p><button id="calculateHash100">Berechne 100sten SHA256 Hash</button></p>
+      <p>h<sub>100</sub>: <span id="hash100"></span></p>
+      <p><button id="register">Registrieren</button> <span id="statusRegister"></span></p></p>
+      <section>
+        <h3>Automatisierte Registrierung</h3>
+        <p>Benutzername: <input type="text" id="usernameRegisterAuto" /></p>
+        <p>Passwort: <input type="text" id="passwordRegisterAuto" /></p>
+        <p><button id="registerAuto">Registrieren</button> <span id="statusRegisterAuto"></span></p></p>
+      </section>
+    </section>
+    <section>
+      <h2>Authentifizierung eines Benutzers</h2>
+      <p>Benutzername: <input type="text" id="usernameLogin" /></p>
+      <p>Passwort: <input type="text" id="passwordLogin" /></p>
+      <p>Derzeitige Iteration i: <span id="currentIteration"></span></p>
+      <p><button id="calculateCurrentHash">Berechne i-ten SHA256 Hash</button></p>
+      <p>h<sub>i</sub>: <span id="currentHash"></span></p>
+      <p><button id="login">Registrieren</button> <span id="statusLogin"></span></p></p>
+      <section>
+        <h3>Automatisierte Authentifizierung</h3>
+        <p>Benutzername: <input type="text" id="usernameLoginAuto" /></p>
+        <p>Passwort: <input type="text" id="passwordLoginAuto" /></p>
+        <p><button id="loginAuto">Login</button> <span id="statusLoginAuto"></span></p></p>
+      </section>
+    </section>
 
-    <p>S/Key Demo</p>
+    <script type="module" src="main.js"></script>
   </body>
 </html>
