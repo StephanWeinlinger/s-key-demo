@@ -84,6 +84,11 @@ const getCurrentIteration = async () => {
 };
 
 const calculateCurrentHash = () => {
+  if (!currentIterationLogin) {
+    document.getElementById("hashCurrent").innerHTML =
+      "Derzeitige Iteration ist 0, Passwort wird nicht gehashed!";
+    return;
+  }
   const hash = calculateHash(
     document.getElementById("passwordLogin").value,
     currentIterationLogin
@@ -93,6 +98,11 @@ const calculateCurrentHash = () => {
 };
 
 const login = async () => {
+  if (!currentIterationLogin) {
+    document.getElementById("statusLogin").innerHTML =
+      "Derzeitige Iteration ist 0, Passwort wird nicht gehashed!";
+    return;
+  }
   const status = await loginUser(
     document.getElementById("usernameLogin").value,
     currentHashLogin
@@ -106,6 +116,11 @@ const loginAuto = async () => {
   const iteration = await fetchCurrentIteration(
     document.getElementById("usernameLoginAuto").value
   );
+  if (!iteration) {
+    document.getElementById("statusLoginAuto").innerHTML =
+      "Derzeitige Iteration ist 0, Passwort wird nicht gehashed!";
+    return;
+  }
   const hash = calculateHash(
     document.getElementById("passwordLoginAuto").value,
     iteration
