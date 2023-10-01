@@ -5,7 +5,6 @@ const API_URL = "http://localhost:5050";
 const calculateHash = (text, iterations) => {
   let hash = text;
   for (let i = 0; i < iterations; ++i) {
-    console.log(i);
     hash = SHA256(hash).toString(CryptoJS.enc.Hex);
   }
   return hash;
