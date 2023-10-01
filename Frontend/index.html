@@ -58,10 +58,11 @@
       <h2>Authentifizierung eines Benutzers</h2>
       <p>Benutzername: <input type="text" id="usernameLogin" /></p>
       <p>Passwort: <input type="text" id="passwordLogin" /></p>
+      <p><button id="getCurrentIteration">Lade derzeitige Iteration i von Server</button></p>
       <p>Derzeitige Iteration i: <span id="currentIteration"></span></p>
       <p><button id="calculateCurrentHash">Berechne i-ten SHA256 Hash</button></p>
-      <p>h<sub>i</sub>: <span id="currentHash"></span></p>
-      <p><button id="login">Registrieren</button> <span id="statusLogin"></span></p></p>
+      <p>h<sub>i</sub>: <span id="hashCurrent"></span></p>
+      <p><button id="login">Login</button> <span id="statusLogin"></span></p></p>
       <section>
         <h3>Automatisierte Authentifizierung</h3>
         <p>Benutzername: <input type="text" id="usernameLoginAuto" /></p>
